@@ -1,0 +1,28 @@
+.button {
+	background: var(--primary);
+	padding: 0.6rem 1.2rem;
+	font-weight: 600;
+	font-size: 15px;
+	text-transform: uppercase;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	border-radius: 8px;
+	cursor: pointer;
+	border: 0px;
+	margin-top: 2rem;
+
+	span {
+		color: var(--white);
+	}
+}
+
+.button:hover {
+	background: var(--fontPrimary);
+	color: var(--white);
+}
+
+.button:hover span {
+	color: var(--white);
+}
