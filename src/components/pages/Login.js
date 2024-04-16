@@ -1,13 +1,13 @@
 import Illustration from '../Illustration';
-import SignupForm from '../SignupForm';
+import LoginForm from '../LoginForm';
 
-export default function Signup() {
+export default function Login() {
 	return (
 		<>
-			<h1>Create an account</h1>
+			<h1>Login to your account</h1>
 			<div className="column">
 				<Illustration />
-				<SignupForm />
+				<LoginForm />
 			</div>
 		</>
 	);
