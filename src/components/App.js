@@ -1,7 +1,7 @@
 import '../styles/App.css';
 import Layout from './Layout';
-import Quiz from './pages/Quiz';
 // import Login from './pages/Login';
+import Quiz from './pages/Quiz';
 // import Home from './pages/Home';
 // import Signup from './pages/Signup';
 
