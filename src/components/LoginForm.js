@@ -20,7 +20,9 @@ export default function LoginForm() {
 					icon="material-icons-outlined"
 				/>
 
-				<Button>Submit Now</Button>
+				<Button>
+					<span>Submit Now</span>
+				</Button>
 
 				<div className="info">
 					Don't have an account? <a href="signup.html">Signup</a>
