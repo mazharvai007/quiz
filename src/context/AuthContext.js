@@ -1,4 +1,10 @@
+import {
+	createUserWithEmailAndPassword,
+	getAuth,
+	updateProfile,
+} from '@firebase/auth';
 import { createContext, useContext, useState } from 'react';
+import '../firebase';
 
 // Make AuthContext using Context API
 const AuthContext = createContext();
@@ -23,6 +29,26 @@ export function useAuth() {
 export function AuthProvider({ value, children }) {
 	const [loading, setLoading] = useState(true);
 	const [currentUser, setCurrentUser] = useState();
+
+	/**
+	 * Create user by signup on Firebase
+	 * @param {*} email
+	 * @param {*} password
+	 * @param {*} username
+	 */
+	async function signup(email, password, username) {
+		const auth = getAuth();
+
+		await createUserWithEmailAndPassword(auth, email, password);
+
+		// Update Profile
+		await updateProfile(auth.currentUser, { displayName: username });
+
+		const user = auth.currentUser;
+		setCurrentUser({
+			...user,
+		});
+	}
 
 	return (
 		<AuthContext.Provider value={value}>
