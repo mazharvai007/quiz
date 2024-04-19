@@ -1,6 +1,7 @@
 import {
 	createUserWithEmailAndPassword,
 	getAuth,
+	signInWithEmailAndPassword,
 	updateProfile,
 } from '@firebase/auth';
 import { createContext, useContext, useState } from 'react';
@@ -48,6 +49,17 @@ export function AuthProvider({ value, children }) {
 		setCurrentUser({
 			...user,
 		});
+	}
+
+	/**
+	 * Login
+	 * @param {*} email
+	 * @param {*} password
+	 * @returns
+	 */
+	async function login(email, password) {
+		const auth = getAuth();
+		return await signInWithEmailAndPassword(auth, email, password);
 	}
 
 	return (
