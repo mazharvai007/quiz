@@ -2,6 +2,7 @@ import {
 	createUserWithEmailAndPassword,
 	getAuth,
 	signInWithEmailAndPassword,
+	signOut,
 	updateProfile,
 } from '@firebase/auth';
 import { createContext, useContext, useState } from 'react';
@@ -60,6 +61,15 @@ export function AuthProvider({ value, children }) {
 	async function login(email, password) {
 		const auth = getAuth();
 		return await signInWithEmailAndPassword(auth, email, password);
+	}
+
+	/**
+	 * User can logout
+	 * @returns
+	 */
+	async function logout() {
+		const auth = getAuth();
+		return await signOut(auth);
 	}
 
 	return (
