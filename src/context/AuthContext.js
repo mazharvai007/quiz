@@ -1,9 +1,12 @@
 import {
 	createUserWithEmailAndPassword,
 	getAuth,
+	onAuthStateChanged,
+	signInWithEmailAndPassword,
+	signOut,
 	updateProfile,
 } from '@firebase/auth';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import '../firebase';
 
 // Make AuthContext using Context API
@@ -26,9 +29,23 @@ export function useAuth() {
  * @param {*} param0
  * @returns
  */
-export function AuthProvider({ value, children }) {
+export function AuthProvider({ children }) {
 	const [loading, setLoading] = useState(true);
 	const [currentUser, setCurrentUser] = useState();
+
+	/**
+	 * Add observer for change to the sign-in user state
+	 */
+	useEffect(() => {
+		const auth = getAuth();
+
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			setCurrentUser(user);
+			setLoading(false);
+		});
+
+		return unsubscribe;
+	}, []);
 
 	/**
 	 * Create user by signup on Firebase
@@ -49,6 +66,33 @@ export function AuthProvider({ value, children }) {
 			...user,
 		});
 	}
+
+	/**
+	 * Login
+	 * @param {*} email
+	 * @param {*} password
+	 * @returns
+	 */
+	async function login(email, password) {
+		const auth = getAuth();
+		return await signInWithEmailAndPassword(auth, email, password);
+	}
+
+	/**
+	 * User can logout
+	 * @returns
+	 */
+	async function logout() {
+		const auth = getAuth();
+		return await signOut(auth);
+	}
+
+	const value = {
+		currentUser,
+		signup,
+		login,
+		logout,
+	};
 
 	return (
 		<AuthContext.Provider value={value}>
