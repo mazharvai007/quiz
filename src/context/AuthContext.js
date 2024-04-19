@@ -72,6 +72,13 @@ export function AuthProvider({ value, children }) {
 		return await signOut(auth);
 	}
 
+	const value = {
+		currentUser,
+		signup,
+		login,
+		logout,
+	};
+
 	return (
 		<AuthContext.Provider value={value}>
 			{!loading && children}
