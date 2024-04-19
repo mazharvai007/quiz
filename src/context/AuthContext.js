@@ -1,6 +1,7 @@
 import {
 	createUserWithEmailAndPassword,
 	getAuth,
+	onAuthStateChanged,
 	signInWithEmailAndPassword,
 	signOut,
 	updateProfile,
@@ -31,6 +32,20 @@ export function useAuth() {
 export function AuthProvider({ value, children }) {
 	const [loading, setLoading] = useState(true);
 	const [currentUser, setCurrentUser] = useState();
+
+	/**
+	 * Add observer for change to the sign-in user state
+	 */
+	useEffect(() => {
+		const auth = getAuth();
+
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			setCurrentUser(user);
+			setLoading(false);
+		});
+
+		return unsubscribe;
+	}, []);
 
 	/**
 	 * Create user by signup on Firebase
