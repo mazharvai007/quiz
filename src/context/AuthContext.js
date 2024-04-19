@@ -6,7 +6,7 @@ import {
 	signOut,
 	updateProfile,
 } from '@firebase/auth';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import '../firebase';
 
 // Make AuthContext using Context API
@@ -29,7 +29,7 @@ export function useAuth() {
  * @param {*} param0
  * @returns
  */
-export function AuthProvider({ value, children }) {
+export function AuthProvider({ children }) {
 	const [loading, setLoading] = useState(true);
 	const [currentUser, setCurrentUser] = useState();
 
