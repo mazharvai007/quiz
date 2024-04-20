@@ -5,11 +5,13 @@
 	--bodyBackground: #f2f4f8;
 	--primary: #ff5454;
 	--successGreen: #00ff84;
-	--dangerRed: #ff0000;
+	--dangerRed: ##f66358;
+	--alertYellow: #ffa92b;
 	--questionBG: #e4e8ee;
 	--fontPrimary: #002333;
 	--active: #ff5454;
 	--white: #ffffff;
+	--black: #000000;
 }
 
 * {
@@ -42,13 +44,23 @@ h4 {
 	text-align: center;
 }
 
-.error {
-	background-color: var(--dangerRed);
+.success {
+	background-color: var(--successGreen);
 	padding: 0.6rem 1.2rem;
 	margin-top: 10px;
 	border-radius: 8px;
 	display: flex;
 	align-items: center;
+	color: var(--black);
+}
+.error {
+	background-color: var(--alertYellow);
+	padding: 0.6rem 1.2rem;
+	margin-top: 10px;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	color: var(--black);
 }
 
 .column {
