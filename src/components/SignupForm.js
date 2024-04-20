@@ -22,8 +22,6 @@ export default function SignupForm() {
 	async function handleSubmit(e) {
 		e.preventDefault();
 
-		console.log(e);
-
 		// Do password validation
 		if (password !== confirmPassword) {
 			return setError('Password does not match!');
@@ -90,7 +88,7 @@ export default function SignupForm() {
 					required
 				/>
 
-				<Button type="submit">
+				<Button type="submit" disabled={loading}>
 					<span>Submit Now</span>
 				</Button>
 
