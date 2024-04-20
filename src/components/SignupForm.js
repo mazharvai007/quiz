@@ -14,7 +14,6 @@ export default function SignupForm() {
 	const [agree, setAgree] = useState('');
 
 	const [loading, setLoading] = useState(false);
-	const [success, setSuccess] = useState('');
 	const [error, setError] = useState('');
 
 	const { signup } = useAuth();
@@ -34,7 +33,6 @@ export default function SignupForm() {
 			setLoading(true);
 
 			await signup(email, password, username);
-			setSuccess('Account created successfully!');
 			navigate('/');
 		} catch (error) {
 			console.log(error);
@@ -93,7 +91,6 @@ export default function SignupForm() {
 					<span>Submit Now</span>
 				</Button>
 
-				{success && <p className="success">{success}</p>}
 				{error && <p className="error">{error}</p>}
 
 				<div className="info">

@@ -6,7 +6,7 @@ function Account() {
 	const { currentUser, logout } = useAuth();
 	return (
 		<>
-			<d className={classes.account}>
+			<div className={classes.account}>
 				{currentUser ? (
 					<>
 						<span
@@ -30,7 +30,7 @@ function Account() {
 						<Link to="/login">Login</Link>
 					</>
 				)}
-			</d>
+			</div>
 		</>
 	);
 }
