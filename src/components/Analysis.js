@@ -1,10 +1,9 @@
-import classes from '../styles/Analysis.module.css';
 import Question from './Question';
 
 function Analysis() {
 	return (
 		<>
-			<div className={classes.analysis}>
+			<div style={{ margin: '2rem auto' }}>
 				<h1>Question Analysis</h1>
 				<h4>You answered 5 out of 10 questions correctly</h4>
 
