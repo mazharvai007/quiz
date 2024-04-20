@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, redirect } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Button from './Button';
 import Checkbox from './Checkbox';
@@ -18,6 +18,7 @@ export default function SignupForm() {
 	const [error, setError] = useState('');
 
 	const { signup } = useAuth();
+	const navigate = useNavigate();
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -34,7 +35,7 @@ export default function SignupForm() {
 
 			await signup(email, password, username);
 			setSuccess('Account created successfully!');
-			redirect('/');
+			navigate('/');
 		} catch (error) {
 			console.log(error);
 			setLoading(false);

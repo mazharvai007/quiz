@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, redirect } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Button from './Button';
 import Form from './Form';
@@ -9,10 +9,10 @@ export default function LoginForm() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [loading, setLoading] = useState(false);
-	const [success, setSuccess] = useState('');
 	const [error, setError] = useState('');
 
 	const { login } = useAuth();
+	const navigate = useNavigate();
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -22,8 +22,7 @@ export default function LoginForm() {
 			setLoading(true);
 
 			await login(email, password);
-			setSuccess('Login Successfully!');
-			redirect('/');
+			navigate('/');
 		} catch (error) {
 			console.log(error);
 			setLoading(false);
@@ -61,7 +60,6 @@ export default function LoginForm() {
 					<span>Submit Now</span>
 				</Button>
 
-				{success && <p className="success">{success}</p>}
 				{error && <p className="error">{error}</p>}
 
 				<div className="info">
