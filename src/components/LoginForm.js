@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import classes from '../styles/Login.module.css';
 import Button from './Button';
 import Form from './Form';
 import TextInput from './TextInput';
@@ -7,7 +6,7 @@ import TextInput from './TextInput';
 export default function LoginForm() {
 	return (
 		<>
-			<Form className={`${classes.login} form`} action="#">
+			<Form className="form" style={{ height: '330px' }} action="#">
 				<TextInput
 					type="email"
 					placeholder="Enter Email"

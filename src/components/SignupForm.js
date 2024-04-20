@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import classes from '../styles/Signup.module.css';
 import Button from './Button';
 import Checkbox from './Checkbox';
 import Form from './Form';
@@ -8,7 +7,7 @@ import TextInput from './TextInput';
 export default function SignupForm() {
 	return (
 		<>
-			<Form className={classes.signup}>
+			<Form style={{ height: '500px' }}>
 				<TextInput
 					type="text"
 					placeholder="Enter Name"
