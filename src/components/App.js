@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Quiz from './pages/Quiz';
 import Result from './pages/Result';
 import Signup from './pages/Signup';
+import PrivateRoute from './PrivateRoute';
 
 export default function App() {
 	return (
@@ -17,8 +18,22 @@ export default function App() {
 						<Route path="/" element={<Home />} />
 						<Route path="/signup" element={<Signup />} />
 						<Route path="/login" element={<Login />} />
-						<Route path="/quiz" element={<Quiz />} />
-						<Route path="/result" element={<Result />} />
+						<Route
+							path="/quiz"
+							element={
+								<PrivateRoute>
+									<Quiz />
+								</PrivateRoute>
+							}
+						/>
+						<Route
+							path="/result"
+							element={
+								<PrivateRoute>
+									<Result />
+								</PrivateRoute>
+							}
+						/>
 					</Routes>
 				</Layout>
 			</AuthProvider>
