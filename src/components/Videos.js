@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { Link } from 'react-router-dom';
 import useVideoList from '../hooks/useVideoList';
 import Video from './Video';
 
@@ -17,12 +18,13 @@ export default function Videos() {
 					next={() => setPage(page + 8)}
 				>
 					{videos.map((video) => (
-						<Video
-							key={video.youtubeID}
-							id={video.youtubeID}
-							title={video.title}
-							noq={video.noq}
-						/>
+						<Link to="/quiz" key={video.youtubeID}>
+							<Video
+								id={video.youtubeID}
+								title={video.title}
+								noq={video.noq}
+							/>
+						</Link>
 					))}
 				</InfiniteScroll>
 			)}
