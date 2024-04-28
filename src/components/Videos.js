@@ -17,15 +17,23 @@ export default function Videos() {
 					loader="Loading..."
 					next={() => setPage(page + 8)}
 				>
-					{videos.map((video) => (
-						<Link to="/quiz" key={video.youtubeID}>
+					{videos.map((video) =>
+						video.noq > 0 ? (
+							<Link to="/quiz" key={video.youtubeID}>
+								<Video
+									id={video.youtubeID}
+									title={video.title}
+									noq={video.noq}
+								/>
+							</Link>
+						) : (
 							<Video
 								id={video.youtubeID}
 								title={video.title}
 								noq={video.noq}
 							/>
-						</Link>
-					))}
+						)
+					)}
 				</InfiniteScroll>
 			)}
 
