@@ -63,6 +63,30 @@ export default function Quiz() {
 		});
 	}
 
+	/**
+	 * Handle when user clicks on the next button to get the next question
+	 */
+	function nextQuestion() {
+		if (currentQuestion + 1 < questions.length) {
+			setCurrentQuestion((prevCurrent) => prevCurrent + 1);
+		}
+	}
+
+	/**
+	 * Handle when user clicks on the prev button to get the prev question
+	 */
+	function prevQuestion() {
+		if (currentQuestion >= 1 && currentQuestion <= questions.length) {
+			setCurrentQuestion((prevCurrent) => prevCurrent + 1);
+		}
+	}
+
+	// Calculate percentage of progress
+	const calculatePercentage =
+		questions.length > 0
+			? ((currentQuestion + 1) / questions.length) * 100
+			: 0;
+
 	return (
 		<>
 			{loading && <div>Loading...</div>}
@@ -76,7 +100,11 @@ export default function Quiz() {
 						options={qna[currentQuestion].options}
 						handleChange={handleAnswerChange}
 					/>
-					<ProgressBar />
+					<ProgressBar
+						next={nextQuestion}
+						prev={prevQuestion}
+						percentage={calculatePercentage}
+					/>
 					<MiniPlayer />
 				</>
 			)}
