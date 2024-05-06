@@ -7,6 +7,11 @@ import Answer from '../Answers';
 import MiniPlayer from '../MiniPlayer';
 import ProgressBar from '../ProgressBar';
 
+/**
+ * It will be added checked false in the each questions.
+ * When users checked the Answers, the checked value
+ * will be changed.
+ */
 const initialState = null;
 
 const reducer = (state, action) => {
@@ -34,12 +39,21 @@ export default function Quiz() {
 	const { loading, error, questions } = useQuestions(id);
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 
+	// use the useReducer for handling the Quiz questions and answer
 	const [qna, dispatch] = useReducer(reducer, initialState);
 
+	/**
+	 * Get Questions of the Quiz based on the video
+	 */
 	useEffect(() => {
 		dispatch({ type: 'questions', value: questions });
 	}, [questions]);
 
+	/**
+	 * Handle the answers based on the Questions
+	 * @param {*} e
+	 * @param {*} index
+	 */
 	function handleAnswerChange(e, index) {
 		dispatch({
 			type: 'answer',
