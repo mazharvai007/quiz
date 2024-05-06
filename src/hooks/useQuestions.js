@@ -1,13 +1,13 @@
-import { getDatabase, orderByKey, query, ref } from 'firebase/database';
+import { get, getDatabase, orderByKey, query, ref } from 'firebase/database';
 import { useEffect, useState } from 'react';
 
-export default function useQuizList(videoId) {
+export default function useQuestions(videoId) {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
-	const [quiz, setQuiz] = useState([]);
+	const [questions, setQuestions] = useState([]);
 
 	useEffect(() => {
-		async function fetchQuiz() {
+		async function fetchQuestions() {
 			// database related works
 			const db = getDatabase();
 			const quizRef = ref(db, 'quiz/' + videoId + '/questions');
@@ -18,12 +18,15 @@ export default function useQuizList(videoId) {
 				setLoading(true);
 
 				// request to firebase database
-				const snapshot = await getDatabase(quizQuery);
+				const snapshot = await get(quizQuery);
 				setLoading(false);
 
 				if (snapshot.exists()) {
-					setQuiz((prevQuiz) => {
-						return [...prevQuiz, ...Object.values(snapshot.val())];
+					setQuestions((prevQuestions) => {
+						return [
+							...prevQuestions,
+							...Object.values(snapshot.val()),
+						];
 					});
 				}
 			} catch (error) {
@@ -33,8 +36,8 @@ export default function useQuizList(videoId) {
 			}
 		}
 
-		fetchQuiz();
+		fetchQuestions();
 	}, [videoId]);
 
-	return [loading, error, quiz];
+	return { loading, error, questions };
 }

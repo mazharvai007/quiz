@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
-import useVideoList from '../hooks/useVideoList';
+import useVideo from '../hooks/useVideo';
 import Video from './Video';
 
 export default function Videos() {
 	const [page, setPage] = useState(1);
-	const { loading, error, videos, hasMore } = useVideoList(page, 8);
+	const { loading, error, videos, hasMore } = useVideo(page, 8);
 
 	return (
 		<>

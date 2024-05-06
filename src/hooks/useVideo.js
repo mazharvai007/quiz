@@ -9,7 +9,7 @@ import {
 } from 'firebase/database';
 import { useEffect, useState } from 'react';
 
-export default function useVideoList(page, limit) {
+export default function useVideo(page, limit) {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
 	const [videos, setVideos] = useState([]);
