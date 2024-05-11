@@ -86,14 +86,6 @@ export default function Quiz() {
 	}
 
 	/**
-	 * Calculate percentage of progress
-	 */
-	const calculatePercentage =
-		questions.length > 0
-			? ((currentQuestion + 1) / questions.length) * 100
-			: 0;
-
-	/**
 	 * When progress value is 100 then submit method
 	 * will be rendered and submit the Quiz
 	 */
@@ -106,11 +98,18 @@ export default function Quiz() {
 			[id]: qna,
 		});
 
-		navigate({
-			pathname: `/result/${id}`,
+		navigate(`/result/${id}`, {
 			state: { qna },
 		});
 	}
+
+	/**
+	 * Calculate percentage of progress
+	 */
+	const calculatePercentage =
+		questions.length > 0
+			? ((currentQuestion + 1) / questions.length) * 100
+			: 0;
 
 	return (
 		<>
@@ -122,6 +121,7 @@ export default function Quiz() {
 					<h4>Question can have multiple answers</h4>
 
 					<Answer
+						input={true}
 						options={qna[currentQuestion].options}
 						handleChange={handleAnswerChange}
 					/>
