@@ -1,8 +1,10 @@
+import { getDatabase, ref, set } from 'firebase/database';
 import _ from 'lodash';
 import { useEffect, useReducer, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import useQuestions from '../../hooks/useQuestions';
+import { useNavigate, useParams } from 'react-router-dom';
 
+import { useAuth } from '../../context/AuthContext';
+import useQuestions from '../../hooks/useQuestions';
 import Answer from '../Answers';
 import MiniPlayer from '../MiniPlayer';
 import ProgressBar from '../ProgressBar';
@@ -41,6 +43,8 @@ export default function Quiz() {
 
 	// use the useReducer for handling the Quiz questions and answer
 	const [qna, dispatch] = useReducer(reducer, initialState);
+	const { currentUser } = useAuth();
+	const navigate = useNavigate();
 
 	/**
 	 * Get Questions of the Quiz based on the video
@@ -81,11 +85,32 @@ export default function Quiz() {
 		}
 	}
 
-	// Calculate percentage of progress
+	/**
+	 * Calculate percentage of progress
+	 */
 	const calculatePercentage =
 		questions.length > 0
 			? ((currentQuestion + 1) / questions.length) * 100
 			: 0;
+
+	/**
+	 * When progress value is 100 then submit method
+	 * will be rendered and submit the Quiz
+	 */
+	async function handleSubmit() {
+		const { uid } = currentUser;
+
+		const db = getDatabase();
+		const resultRef = ref(db, `result/${uid}`);
+		await set(resultRef, {
+			[id]: qna,
+		});
+
+		navigate({
+			pathname: `/result/${id}`,
+			state: { qna },
+		});
+	}
 
 	return (
 		<>
@@ -103,7 +128,8 @@ export default function Quiz() {
 					<ProgressBar
 						next={nextQuestion}
 						prev={prevQuestion}
-						percentage={calculatePercentage}
+						submit={handleSubmit}
+						progress={calculatePercentage}
 					/>
 					<MiniPlayer />
 				</>
