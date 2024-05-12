@@ -1,7 +1,7 @@
 import { getDatabase, ref, set } from 'firebase/database';
 import _ from 'lodash';
 import { useEffect, useReducer, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { useAuth } from '../../context/AuthContext';
 import useQuestions from '../../hooks/useQuestions';
@@ -45,6 +45,8 @@ export default function Quiz() {
 	const [qna, dispatch] = useReducer(reducer, initialState);
 	const { currentUser } = useAuth();
 	const navigate = useNavigate();
+	const { state } = useLocation();
+	const { videoTitle } = state || {};
 
 	/**
 	 * Get Questions of the Quiz based on the video
@@ -86,14 +88,6 @@ export default function Quiz() {
 	}
 
 	/**
-	 * Calculate percentage of progress
-	 */
-	const calculatePercentage =
-		questions.length > 0
-			? ((currentQuestion + 1) / questions.length) * 100
-			: 0;
-
-	/**
 	 * When progress value is 100 then submit method
 	 * will be rendered and submit the Quiz
 	 */
@@ -106,11 +100,18 @@ export default function Quiz() {
 			[id]: qna,
 		});
 
-		navigate({
-			pathname: `/result/${id}`,
+		navigate(`/result/${id}`, {
 			state: { qna },
 		});
 	}
+
+	/**
+	 * Calculate percentage of progress
+	 */
+	const calculatePercentage =
+		questions.length > 0
+			? ((currentQuestion + 1) / questions.length) * 100
+			: 0;
 
 	return (
 		<>
@@ -122,6 +123,7 @@ export default function Quiz() {
 					<h4>Question can have multiple answers</h4>
 
 					<Answer
+						input={true}
 						options={qna[currentQuestion].options}
 						handleChange={handleAnswerChange}
 					/>
@@ -131,7 +133,7 @@ export default function Quiz() {
 						submit={handleSubmit}
 						progress={calculatePercentage}
 					/>
-					<MiniPlayer />
+					<MiniPlayer id={id} title={videoTitle} />
 				</>
 			)}
 		</>
