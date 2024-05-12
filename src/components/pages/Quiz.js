@@ -131,7 +131,7 @@ export default function Quiz() {
 						submit={handleSubmit}
 						progress={calculatePercentage}
 					/>
-					<MiniPlayer />
+					<MiniPlayer id={id} title={qna[currentQuestion].title} />
 				</>
 			)}
 		</>
